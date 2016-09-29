@@ -10,4 +10,4 @@ encode(Int) when Int =< 127 ->
     <<Int>>.
 
 decode(<<Int, Rest/binary>>) when Int =< 127 ->
-    {ok, Int, Rest}.
+    {Int, Rest}.
