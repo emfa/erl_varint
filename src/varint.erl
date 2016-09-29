@@ -6,8 +6,10 @@
 -export([encode/1, decode/1]).
 
 -spec encode(non_neg_integer()) -> binary().
-encode(Int) when Int =< 127 ->
-    <<Int>>.
+encode(Int) when Int < 128 ->
+    <<Int>>;
+encode(Int) when Int < 16384 ->
+    <<1:1, 0:1, Int:14>>.
 
 decode(<<0:1, Int:7, Rest/binary>>) ->
     {Int, Rest};
