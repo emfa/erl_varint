@@ -9,5 +9,7 @@
 encode(Int) when Int =< 127 ->
     <<Int>>.
 
-decode(<<Int, Rest/binary>>) when Int =< 127 ->
+decode(<<0:1, Int:7, Rest/binary>>) ->
+    {Int, Rest};
+decode(<<1:1, 0:1, Int:14, Rest/binary>>) ->
     {Int, Rest}.
